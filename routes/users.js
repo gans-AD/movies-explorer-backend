@@ -1,9 +1,10 @@
 const router = require('express').Router();
+const { getCurrentUser, editUser } = require('../controllers/user');
 
 // возвращает информацию о пользователе (email и имя)
-router.get('/me',...);
+router.get('/me', getCurrentUser);
 
 // обновляет информацию о пользователе (email и имя)
-router.patch('/me',...);
+router.patch('/me', editUser);
 
 module.exports = router;
