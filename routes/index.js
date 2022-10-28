@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { login, createUser, signOut } = require('../controllers/user');
+const { login, createUser, signOut } = require('../controllers/users');
 
 // роуты, доступные без авторизации
 router.post(

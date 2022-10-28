@@ -15,7 +15,6 @@ const NotFoundError = require('./utils/errors/not-found-err');
 const { PORT = 3000 } = process.env;
 const app = express();
 
-
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -33,6 +32,9 @@ app.use('/', require('./routes/index'));
 
 // мидлвэр авторизации
 app.use(auth);
+
+// роуты, защищенные авторизацией
+app.use('/users', require('./routes/users'))
 
 app.use(errorLogger);
 
