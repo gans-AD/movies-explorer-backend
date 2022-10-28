@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/gans-AD/movies-explorer-backend#readme",
   "devDependencies": {
+    "eslint": "^8.26.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
@@ -27,9 +30,7 @@
     "celebrate": "^15.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
-    "eslint": "^8.26.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
+
     "express": "^4.18.2",
     "express-winston": "^4.2.0",
     "jsonwebtoken": "^8.5.1",

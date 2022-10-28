@@ -15,8 +15,9 @@ const NotFoundError = require('./utils/errors/not-found-err');
 const { PORT = 3000 } = process.env;
 const app = express();
 
+
 app.use(bodyParser.json());
-app.use(cookieParser);
+app.use(cookieParser());
 
 // подключаем базу данных
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
