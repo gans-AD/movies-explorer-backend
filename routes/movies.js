@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getSavedMovies, createMovie } = require('../controllers/movies');
+const { getSavedMovies, createMovie, deleteMovieById } = require('../controllers/movies');
 
 // возвращает все сохранённые текущим  пользователем фильмы
 router.get('/', getSavedMovies);
@@ -11,6 +11,6 @@ router.get('/', getSavedMovies);
 router.post('/', createMovie);
 
 // удаляет сохранённый фильм по id
-// router.delete('/:_id', ...);
+router.delete('/:movieId', deleteMovieById);
 
 module.exports = router;
