@@ -34,7 +34,8 @@ app.use('/', require('./routes/index'));
 app.use(auth);
 
 // роуты, защищенные авторизацией
-app.use('/users', require('./routes/users'))
+app.use('/users', require('./routes/users'));
+app.use('/movies', require('./routes/movies'));
 
 app.use(errorLogger);
 
