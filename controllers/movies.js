@@ -2,6 +2,7 @@ const Movie = require('../models/movie');
 
 const BadRequestError = require('../utils/errors/bad-req-err');
 const NotFoundError = require('../utils/errors/not-found-err');
+const ForbiddenError = require('../utils/errors/forbid-err');
 
 module.exports.getSavedMovies = (req, res, next) => {
   Movie.find({}).then((movies) => {
@@ -53,13 +54,20 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovieById = (req, res, next) => {
-  Movie.findByIdAndDelete(req.params.movieId)
+  Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Кино с указанным _id не найдено');
       }
 
-      res.send({ message: 'фильм удален' });
+      if (movie.owner.toString() !== req.user._id) {
+        throw new ForbiddenError('Нельзя удалять чужие фильмы');
+      }
+
+      movie
+        .remove()
+        .then(res.send({ message: 'фильм удален' }))
+        .catch(next);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
