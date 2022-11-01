@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const auth = require('./middlewares/auth');
 const { errorHandler } = require('./middlewares/errorHandler');
 const { errorLogger, requestLogger } = require('./middlewares/logger');
 const { corsHandler } = require('./middlewares/cors');
@@ -28,15 +27,8 @@ app.use(requestLogger);
 // мидлвер CORS запросов
 app.use(corsHandler);
 
-// роуты, доступные без авторизации
+// подключаем роуты
 app.use('/', require('./routes/index'));
-
-// мидлвэр авторизации
-app.use(auth);
-
-// роуты, защищенные авторизацией
-app.use('/users', require('./routes/users'));
-app.use('/movies', require('./routes/movies'));
 
 // обработка несуществующего маршрута
 app.use('*', () => {

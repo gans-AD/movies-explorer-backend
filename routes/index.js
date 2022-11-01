@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { login, createUser, signOut } = require('../controllers/users');
+const auth = require('../middlewares/auth');
 
 // роуты, доступные без авторизации
 router.post(
@@ -27,5 +28,12 @@ router.post(
 );
 
 router.get('/signout', signOut);
+
+// мидлвэр авторизации
+router.use(auth);
+
+// роуты, защищенные авторизацией
+router.use('/users', require('./users'));
+router.use('/movies', require('./movies'));
 
 module.exports = router;
