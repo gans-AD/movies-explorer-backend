@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -9,6 +10,7 @@ const { errorHandler } = require('./middlewares/errorHandler');
 const { errorLogger, requestLogger } = require('./middlewares/logger');
 const { corsHandler } = require('./middlewares/cors');
 const { config } = require('./utils/config');
+const { limiter } = require('./utils/rate-limiter');
 
 const NotFoundError = require('./utils/errors/not-found-err');
 
@@ -17,9 +19,13 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(helmet());
+app.use(limiter());
 
 // подключаем базу данных
-mongoose.connect(NODE_ENV === 'production' ? DATABASE_URI : config.development.database.uri);
+mongoose.connect(
+  NODE_ENV === 'production' ? DATABASE_URI : config.development.database.uri,
+);
 
 // подключаем логгер запросов
 app.use(requestLogger);

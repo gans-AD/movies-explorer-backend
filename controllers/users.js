@@ -6,6 +6,7 @@ const User = require('../models/user');
 const BadRequestError = require('../utils/errors/bad-req-err');
 const NotFoundError = require('../utils/errors/not-found-err');
 const DuplicateError = require('../utils/errors/duplicate-err');
+const { config } = require('../utils/config');
 
 // создание пользователя
 module.exports.createUser = (req, res, next) => {
@@ -55,7 +56,7 @@ module.exports.login = (req, res, next) => {
       // создаем токен
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : config.development.jwtSecret,
         {
           expiresIn: '7d',
         },
