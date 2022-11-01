@@ -24,4 +24,4 @@
 
 ## Ссылки на проект
 
-- API доступен по адресу - https://cinematron.nomoredomains.icu/api/
+- API доступен по адресу - https://api.cinematron.nomoredomains.icu
