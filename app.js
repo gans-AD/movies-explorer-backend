@@ -38,12 +38,12 @@ app.use(auth);
 app.use('/users', require('./routes/users'));
 app.use('/movies', require('./routes/movies'));
 
-app.use(errorLogger);
-
 // обработка несуществующего маршрута
 app.use('*', () => {
   throw new NotFoundError('несуществующий маршрут');
 });
+
+app.use(errorLogger);
 
 // мидлвэр обработки ошибок Celebrate
 app.use(errors());
