@@ -9,17 +9,18 @@ const auth = require('./middlewares/auth');
 const { errorHandler } = require('./middlewares/errorHandler');
 const { errorLogger, requestLogger } = require('./middlewares/logger');
 const { corsHandler } = require('./middlewares/cors');
+const { config } = require('./utils/config');
 
 const NotFoundError = require('./utils/errors/not-found-err');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, DATABASE_URI } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 // подключаем базу данных
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+mongoose.connect(NODE_ENV === 'production' ? DATABASE_URI : config.development.database.uri);
 
 // подключаем логгер запросов
 app.use(requestLogger);
