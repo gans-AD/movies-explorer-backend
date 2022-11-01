@@ -101,6 +101,17 @@ module.exports.getCurrentUser = (req, res, next) => {
 module.exports.editUser = (req, res, next) => {
   const { name, email } = req.body;
 
+  // проверка дублирования email
+  User.findOne({ email })
+    .then((user) => {
+      if (user) {
+        throw new DuplicateError(
+          'указанный Email используется другим пользователем',
+        );
+      }
+    })
+    .catch(next);
+
   User.findByIdAndUpdate(
     req.user._id,
     { name, email },
