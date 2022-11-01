@@ -5,9 +5,11 @@ const NotFoundError = require('../utils/errors/not-found-err');
 const ForbiddenError = require('../utils/errors/forbid-err');
 
 module.exports.getSavedMovies = (req, res, next) => {
-  Movie.find({}).then((movies) => {
-    res.send({ data: movies }).catch(next);
-  });
+  Movie.find({})
+    .then((movies) => {
+      res.send({ data: movies });
+    })
+    .catch(next);
 };
 
 module.exports.createMovie = (req, res, next) => {
