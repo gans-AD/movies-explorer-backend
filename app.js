@@ -20,7 +20,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helmet());
-app.use(limiter());
+app.use(limiter);
 
 // подключаем базу данных
 mongoose.connect(
